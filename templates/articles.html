@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            All Articles
+    </title>
+    <!-- CSS only -->
+    <link href="{{ url_for('static',filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type ="text/css">
+    <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type ="text/css">
+    <script src="{{ url_for('static',filename='js/custom.js') }}" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div class="container">
+                <div class = "jumbotron">
+                    <h1 class = "display-4">All Articles</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        {% for article in articles %}
+                        <div>
+                            <h2>{{ article["title"] }}</h2>
+                            <p>Written By 
+                                {% for author in article["authors"] %}
+                                <a href = '/articles_by/{{ author["username"] }}'>{{ author["username"] }}</a>
+                                {% if not loop.last %}
+                                ,
+                                {% endif %}
+                                {% endfor %}
+                            </p>
+                            <div>
+                                {{ article["content"] }}
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-4">
+                        <h3>SIDEBAR</h3>
+                        <a href="/">HOME</a>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>
+</html>

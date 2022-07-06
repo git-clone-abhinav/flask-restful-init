@@ -21,7 +21,12 @@ def create_app():
 
 app, api = create_app()
 
+# Import all the controllers so that they are loaded into the API.
 from application.controllers import *
+
+# Add all restful controllers
+from application.api import UserAPI
+api.add_resource(UserAPI, "/api/user", "/api/user/<string:username>")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

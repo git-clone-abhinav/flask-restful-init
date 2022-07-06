@@ -1,9 +1,11 @@
 import os
 from flask import Flask
+from flask_restful import Resource, Api
 from application.config import LocalDevelopmentConfig
 from application.database import db
 
 app = None
+api = None
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
@@ -13,10 +15,11 @@ def create_app():
         print("Starting in local development.")
         app.config.from_object(LocalDevelopmentConfig)
     db.init_app(app)
+    api = Api(app)
     app.app_context().push()
-    return app
+    return app, api
 
-app = create_app()
+app, api = create_app()
 
 from application.controllers import *
 
